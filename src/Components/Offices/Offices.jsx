@@ -1,7 +1,7 @@
 import React from 'react'
 import Office from './Office.jsx'
 
-import { useGetAllOffices } from '../../Hooks/useGetAllOffices.jsx'
+import { useGetAllOffices } from '../../Hooks/Offices/useGetAllOffices.jsx'
 
 export function Offices() {
     const {offices} = useGetAllOffices()

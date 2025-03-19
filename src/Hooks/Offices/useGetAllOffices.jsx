@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { OfficeController } from '../Controllers/ofice.controller.js'
+import { OfficeController } from '../../Controllers/office.controller.js'
 
 export function useGetAllOffices() {
     const [offices, setOffices] = useState({})
@@ -7,7 +7,6 @@ export function useGetAllOffices() {
     const GetAllOffices = async () => {
         try {
             const allOffices = await OfficeController.GetAllOffices()
-            // console.log('Hook>>>>>>>>>>>>>>>>>>>>', allOffices)
             setOffices(allOffices)
         } catch (error) {
             console.error(error)

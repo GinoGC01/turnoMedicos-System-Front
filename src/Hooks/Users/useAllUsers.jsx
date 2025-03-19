@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UsersController } from "../Controllers/users.controller";
+import { UsersController } from "../../Controllers/users.controller";
 
 export function useAllUsers (){
     const [users, setUsers] = useState({})

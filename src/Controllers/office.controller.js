@@ -1,4 +1,5 @@
-import { OfficesModel } from "../Models/ofice.model.js"
+import { OfficesModel } from "../Models/office.model.js"
+import { SlotsModel } from "../Models/slots.model.js"
 import { objectIdRegex } from "../Schemas/idMongoSchema.js"
 
 export class OfficeController{
@@ -13,7 +14,7 @@ export class OfficeController{
             }
         } catch (error) {
             console.error(error)
-        }
+        } 
         
     }
 
@@ -27,4 +28,6 @@ export class OfficeController{
         }
 
     }
+
+
 }

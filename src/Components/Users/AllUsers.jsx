@@ -1,4 +1,4 @@
-import { useAllUsers } from "../../Hooks/useAllUsers.jsx"
+import { useAllUsers } from "../../Hooks/Users/useAllUsers.jsx"
 
 export function AllUsers() {
 

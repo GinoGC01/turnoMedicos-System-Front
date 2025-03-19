@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Offices/>
-      <AllUsers/>
+      {/* <AllUsers/> */}
     </>
   )
 }
