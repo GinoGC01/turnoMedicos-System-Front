@@ -133,3 +133,126 @@ Asegúrate de incluir todas las dependencias en los useEffect y useCallback para
 # Conclusión
 
 El hook `useSlotsByProfessional` es una herramienta poderosa para gestionar y organizar los slots disponibles de un profesional en función de la duración de sus servicios. Con una implementación clara y una documentación detallada, este hook puede ser fácilmente integrado en cualquier aplicación de agendamiento.
+
+
+
+---
+# Hook: `useReserveSlot`
+
+## Descripción
+El hook `useReserveSlot` es una utilidad diseñada para manejar la reserva de un turno. Este hook se encarga de validar los datos del formulario, realizar la solicitud para crear una orden de reserva y manejar los errores y estados de carga, junto con la redirección a la página encargada de gestionar los pagos.
+
+---
+
+## Cómo funciona
+1. **Valida los datos del formulario**: Usa la función `formValidation` para asegurarse de que los datos ingresados por el usuario sean válidos.
+2. **Realiza la reserva**: Envía los datos del formulario y el ID del turno al controlador `SlotsController.CreateOrder` para crear la orden de reserva.
+3. **Maneja errores y estados de carga**: Actualiza el estado de `responseError` y `loader` según el resultado de la operación.
+
+---
+
+## Parámetros
+El hook acepta un objeto con las siguientes propiedades:
+
+| Parámetro   | Tipo       | Descripción                                                                 |
+|-------------|------------|-----------------------------------------------------------------------------|
+| `turno`     | `Object`   | Un objeto que representa el turno seleccionado. Debe contener un arreglo `grupoTurnos` con al menos un slot. |
+| `serviceId` | `string`   | El ID del servicio asociado al turno.                                       |
+
+---
+
+## Valores de retorno
+El hook retorna un objeto con las siguientes propiedades:
+
+| Propiedad       | Tipo       | Descripción                                                                 |
+|-----------------|------------|-----------------------------------------------------------------------------|
+| `responseError` | `Object`   | Un objeto que indica si hubo un error durante la reserva. Contiene `status` (booleano) y `message` (string). |
+| `loader`        | `boolean`  | Indica si la reserva está en proceso (`true`) o no (`false`).              |
+| `handlerSubmit` | `Function` | Función que maneja el envío del formulario. Recibe el evento `submit` como parámetro. |
+
+---
+
+## Ejemplo de uso
+
+```javascript
+import useReserveSlot from './hooks/useReserveSlot';
+
+function ReserveSlotForm({ turno, serviceId }) {
+  const { responseError, loader, handlerSubmit } = useReserveSlot({ turno, serviceId });
+
+  return (
+    <form onSubmit={handlerSubmit}>
+      <div>
+        <label htmlFor="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required />
+      </div>
+      <div>
+        <label htmlFor="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" required />
+      </div>
+      <div>
+        <label htmlFor="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" required />
+      </div>
+      <button type="submit" disabled={loader}>
+        {loader ? "Reservando..." : "Reservar"}
+      </button>
+      {responseError.status && <p style={{ color: "red" }}>{responseError.message}</p>}
+    </form>
+  );
+}
+``` 
+
+## Estructura de turno
+# El parámetro turno debe tener la siguiente estructura:
+
+```javascript
+{
+  grupoTurnos: [
+    {
+      _id: "67cf45d33e2383281e1ab0bc", // ID del slot
+      startTime: "09:00:00", // Hora de inicio
+      endTime: "09:30:00",   // Hora de fin
+      status: "available"     // Estado del slot
+    },
+    // Más slots...
+  ]
+}
+```
+
+## Flujo de trabajo
+
+1. El usuario completa el formulario y hace clic en "Reservar".
+
+2. El hook valida los datos del formulario usando formValidation.
+
+3. Si la validación falla, se muestra un mensaje de error.
+
+4. Si la validación es exitosa, se envía la solicitud al backend usando SlotsController.CreateOrder.
+
+5. Si la reserva es exitosa, el usuario es redirigido a la URL proporcionada por el backend (response.urlFront).
+
+6. Si ocurre un error, se muestra en la consola y se actualiza el estado de responseError.
+
+## Ejemplo de datos de entrada
+# turno
+``` javascript
+Copy
+const turno = {
+  grupoTurnos: [
+    {
+      _id: "67cf45d33e2383281e1ab0bc",
+      startTime: "09:00:00",
+      endTime: "09:30:00",
+      status: "available",
+    },
+  ],
+};
+```
+# serviceId
+``` javascript
+Copy
+const serviceId = "svc001";
+```
+## Conclusión
+El hook `useReserveSlot` es una herramienta útil para manejar la reserva de turnos en aplicaciones de agendamiento. Con una implementación clara y una documentación detallada, este hook puede ser fácilmente integrado en cualquier formulario de reserva. *El hook esta en su version beta, se encuentra actualmente en desarrollo para mejor dinámica y adaptabilidad*

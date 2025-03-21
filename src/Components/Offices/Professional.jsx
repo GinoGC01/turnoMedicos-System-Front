@@ -12,7 +12,7 @@ export default function Professional({professional}) {
 
   return (
     <div>
-      <h2>{professional.name}</h2>
+      <h3>{professional.name}</h3>
       <button onClick={handlerOpen}>ver servicios</button>
       {open && <ul>
         {slotsByServices.map((service, index) => (
@@ -21,7 +21,7 @@ export default function Professional({professional}) {
             <p>Duración: {service.duration} minutos</p>
             {Object.entries(service.turnosPorDia).map(([date, turnos]) => { 
               const fecha = dateFormater(date)
-              return <SlotsByServices key={date} fecha={fecha} turnos={turnos}/>
+              return <SlotsByServices key={date} fecha={fecha} turnos={turnos} serviceId={service.id}/>
             })}
           </li>
         ))}

@@ -15,4 +15,16 @@ export class SlotsController{
             console.error(error)
         }
     }
+
+    static async CreateOrder(turno_Id, turnoData){
+        try {
+            if(objectIdRegex.test(turno_Id)){
+                const url = await SlotsModel.CreateOrder(turno_Id, turnoData)
+                return url
+            }
+        } catch (error) {
+            console.error('Error by controller', error)
+
+        }
+    }
 }

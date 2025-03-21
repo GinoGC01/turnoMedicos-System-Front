@@ -1,5 +1,5 @@
 import axios from "axios";
-import { slotsByProfessionalRoute } from "../Routes/slots.routes";
+import { createOrderSlotRoute, slotsByProfessionalRoute } from "../Routes/slots.routes";
 
 
 export class SlotsModel {
@@ -9,6 +9,15 @@ export class SlotsModel {
             return allSlots.data
         } catch (error) {
             console.error(error)
+        }
+    }
+
+    static async CreateOrder (turno_Id, turnoData){
+        try{
+            const url = await axios.post(createOrderSlotRoute(turno_Id), turnoData)
+            return url.data
+        }catch(error){
+            console.error('Error by model', error)
         }
     }
 }

@@ -118,6 +118,8 @@ export default function useSlotsByProfessional({ id, services }) {
         return {
           title: service.title,
           duration: service.duration,
+          id:service.id,
+          _id:service._id,
           turnosPorDia: turnosPorDia, // Turnos agrupados por día
         };
       });
