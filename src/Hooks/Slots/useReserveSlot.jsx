@@ -11,9 +11,9 @@ export default function useReserveSlot({turno, serviceId}) {
         const form = e.target;
         const formData = new FormData(form);
         const fields = Object.fromEntries(formData);
-        const {nombre, dni, edad} = fields
+        const {nombre, dni, edad, email, telefono} = fields
         const dataOfForm = {
-            nombre, dni, edad, servicioId:serviceId
+            nombre, dni, edad, email, telefono, servicioId:serviceId
         }
 
         const validation = formValidation(dataOfForm)
